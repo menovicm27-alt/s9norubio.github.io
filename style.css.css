@@ -1,0 +1,332 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    min-height: 100vh;
+    background: radial-gradient(circle at 30% 30%, #1a1a1e, #0a0a0a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Сложный анимированный фон с шифтом */
+.shift-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.shift-grid {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    transform: rotate(15deg);
+    animation: shiftGrid 20s linear infinite;
+}
+
+@keyframes shiftGrid {
+    0% { transform: rotate(15deg) translate(0, 0); }
+    100% { transform: rotate(15deg) translate(-50px, -50px); }
+}
+
+.shift-waves {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.5) 100%);
+}
+
+.shift-waves::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 20px,
+        rgba(100, 150, 255, 0.02) 20px,
+        rgba(100, 150, 255, 0.02) 40px
+    );
+    animation: shiftWaves 15s linear infinite;
+}
+
+@keyframes shiftWaves {
+    0% { transform: translateX(0) translateY(0); }
+    100% { transform: translateX(30px) translateY(30px); }
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    padding: 40px 20px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Обычный заголовок без эффектов */
+.shift-header {
+    margin-bottom: 20px;
+}
+
+.shift-title {
+    font-size: 4rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    color: white;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Кастом шифт кнопки */
+.shift-button {
+    width: 100%;
+    text-decoration: none;
+    position: relative;
+    perspective: 1000px;
+}
+
+.shift-button-inner {
+    background: rgba(20, 25, 35, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 20px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    transform-style: preserve-3d;
+    animation: shiftFloat 4s infinite;
+}
+
+.tg-button .shift-button-inner {
+    animation-delay: 0s;
+    background: linear-gradient(135deg, rgba(0, 136, 204, 0.2), rgba(0, 136, 204, 0.05));
+}
+
+.bio-button .shift-button-inner {
+    animation-delay: 1s;
+    background: linear-gradient(135deg, rgba(142, 68, 173, 0.2), rgba(142, 68, 173, 0.05));
+}
+
+@keyframes shiftFloat {
+    0%, 100% { transform: translateZ(0) rotateX(0deg); }
+    25% { transform: translateZ(20px) rotateX(2deg); }
+    75% { transform: translateZ(-10px) rotateX(-2deg); }
+}
+
+.shift-button-inner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.1) 50%, 
+        transparent 100%);
+    transform: translateX(-100%);
+    transition: transform 0.5s;
+}
+
+.shift-button:hover .shift-button-inner::before {
+    transform: translateX(100%);
+}
+
+.shift-button:hover .shift-button-inner {
+    transform: scale(1.02) translateZ(30px);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.shift-button-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.shift-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transform: translateZ(10px);
+}
+
+.shift-title-text {
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.02em;
+    transform: translateZ(20px);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.shift-icon {
+    width: 70px;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    transform: translateZ(30px) rotate(10deg);
+    transition: all 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.shift-button:hover .shift-icon {
+    transform: translateZ(50px) rotate(0deg) scale(1.1);
+}
+
+/* Кастом шифт переключатель */
+.shift-toggle {
+    width: 100%;
+    background: rgba(10, 15, 20, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 100px;
+    padding: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    position: relative;
+    margin: 20px 0;
+}
+
+.toggle-option {
+    flex: 1;
+    padding: 15px 10px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+    position: relative;
+    z-index: 2;
+}
+
+.toggle-option.active {
+    color: white;
+}
+
+.toggle-slider {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    width: calc(50% - 5px);
+    background: linear-gradient(135deg, #0088cc, #006699);
+    border-radius: 100px;
+    transition: transform 0.3s ease;
+    z-index: 1;
+}
+
+.toggle-slider.bio-mode {
+    transform: translateX(100%);
+    background: linear-gradient(135deg, #8e44ad, #6c3483);
+}
+
+/* Кастом шифт футер */
+.shift-footer {
+    width: 100%;
+    margin-top: 30px;
+    position: relative;
+}
+
+.shift-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.shift-links::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(0, 136, 204, 0.1), 
+        rgba(142, 68, 173, 0.1), 
+        transparent);
+    transform: translateX(-100%);
+    animation: shiftLinkGlow 3s infinite;
+}
+
+@keyframes shiftLinkGlow {
+    0% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+    100% { transform: translateX(200%); }
+}
+
+.shift-link {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 1rem;
+    transition: all 0.3s;
+    position: relative;
+    padding: 5px 15px;
+    border-radius: 30px;
+    z-index: 2;
+}
+
+.shift-link:hover {
+    color: white;
+    transform: scale(1.1);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.shift-link:first-child:hover {
+    background: rgba(0, 136, 204, 0.2);
+}
+
+.shift-link:last-child:hover {
+    background: rgba(142, 68, 173, 0.2);
+}
+
+/* Адаптация */
+@media (max-width: 480px) {
+    .shift-title { font-size: 2.5rem; }
+    .shift-title-text { font-size: 1.5rem; }
+    .shift-icon { width: 50px; height: 50px; font-size: 1.5rem; }
+    .shift-links { flex-direction: column; align-items: center; gap: 10px; }
+}
